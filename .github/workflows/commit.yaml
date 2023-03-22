@@ -9,4 +9,9 @@ jobs:
   test:
     runs-on: ubuntu-latest
     steps:
-      - run: ls
+      - name: Setup Go environment
+        uses: actions/setup-go@v4.0.0
+      - name: Install perf-check
+        run: go install github.com/zacikpet/perf-check@latest
+      - name: Check perf-check location
+        run: which perf-check
