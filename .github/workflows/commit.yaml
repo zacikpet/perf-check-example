@@ -11,7 +11,7 @@ jobs:
     steps:
       - name: Setup Go environment
         uses: actions/setup-go@v4.0.0
-      - name: Install perf-check
-        run: go install github.com/zacikpet/perf-check@latest
-      - name: Check perf-check location
-        run: which perf-check
+      - name: Install perfcheck
+        run: go install github.com/zacikpet/perfcheck@latest
+      - name: Check perfcheck location
+        run: which perfcheck
