@@ -8,4 +8,5 @@ on:
 jobs:
   test:
     runs-on: ubuntu
-    steps: []
+    steps:
+      - run: ls
