@@ -17,7 +17,7 @@ const PORT = 8080
 
 // @Summary		Hello
 // @Router			/ [get]
-// @x-perf-check	{ "latency": ["avg < 50", "min < 50", "avg_stat < 50"], "errorRate": ["avg_stat < 0.1"] }
+// @x-perfcheck	{ "latency": ["avg < 50", "min < 50", "avg_stat < 50"], "errorRate": ["avg_stat < 0.1"] }
 func Helloworld(g *gin.Context) {
 
 	sleep := rand.Intn(100)
@@ -28,7 +28,7 @@ func Helloworld(g *gin.Context) {
 
 // @title			Example API
 // @schemes		http
-// @x-perf-check	{ "stages": [{ "duration": "1s", "target": 5 }] }
+// @x-perfcheck	{ "stages": [{ "duration": "1s", "target": 5 }] }
 func main() {
 	r := gin.Default()
 

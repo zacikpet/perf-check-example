@@ -19,7 +19,7 @@ const docTemplate = `{
             "get": {
                 "summary": "Hello",
                 "responses": {},
-                "x-perf-check": {
+                "x-perfcheck": {
                     "errorRate": [
                         "avg_stat \u003c 0.1"
                     ],
@@ -32,7 +32,7 @@ const docTemplate = `{
             }
         }
     },
-    "x-perf-check": {
+    "x-perfcheck": {
         "stages": [
             {
                 "duration": "1s",
