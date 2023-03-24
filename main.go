@@ -30,12 +30,13 @@ func Helloworld(g *gin.Context) {
 func main() {
 	r := gin.Default()
 
+	host := os.Getenv("HOST")
 	port := os.Getenv("PORT")
-	if port == "" {
+
+	if port == "" && host == "" {
 		port = "8080"
 	}
 
-	host := os.Getenv("HOST")
 	if host == "" {
 		host = "localhost"
 	}
@@ -45,7 +46,12 @@ func main() {
 		scheme = "http"
 	}
 
-	docs.SwaggerInfo.Host = fmt.Sprintf("%s:%s", host, port)
+	if port == "" {
+		docs.SwaggerInfo.Host = fmt.Sprintf("%s:%s", host, port)
+	} else {
+		docs.SwaggerInfo.Host = host
+	}
+
 	docs.SwaggerInfo.Schemes = []string{scheme}
 
 	r.GET("/", Helloworld)
