@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"math/rand"
 	"net/http"
+	"os"
 	"time"
 
 	docs "test-app/docs"
@@ -12,8 +13,6 @@ import (
 	swaggerfiles "github.com/swaggo/files"
 	ginSwagger "github.com/swaggo/gin-swagger"
 )
-
-const PORT = 8080
 
 // @Summary		Hello
 // @Router			/ [get]
@@ -27,16 +26,31 @@ func Helloworld(g *gin.Context) {
 }
 
 // @title			Example API
-// @schemes		http
 // @x-perfcheck	{ "stages": [{ "duration": "1s", "target": 5 }] }
 func main() {
 	r := gin.Default()
 
-	docs.SwaggerInfo.Host = fmt.Sprintf("localhost:%d", PORT)
+	port := os.Getenv("PORT")
+	if port == "" {
+		port = "8080"
+	}
+
+	host := os.Getenv("HOST")
+	if host == "" {
+		host = "localhost"
+	}
+
+	scheme := os.Getenv("SCHEME")
+	if scheme == "" {
+		scheme = "http"
+	}
+
+	docs.SwaggerInfo.Host = fmt.Sprintf("%s:%s", host, port)
+	docs.SwaggerInfo.Schemes = []string{scheme}
 
 	r.GET("/", Helloworld)
 
 	r.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerfiles.Handler))
 
-	r.Run(fmt.Sprintf(":%d", PORT))
+	r.Run(fmt.Sprintf(":%s", port))
 }

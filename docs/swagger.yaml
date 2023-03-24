@@ -13,8 +13,6 @@ paths:
         - avg < 50
         - min < 50
         - avg_stat < 50
-schemes:
-- http
 swagger: "2.0"
 x-perfcheck:
   stages:
