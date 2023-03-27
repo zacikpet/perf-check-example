@@ -1,0 +1,11 @@
+{
+  "triggerTemplate": {
+    "projectId": "linen-tempest-380208",
+    "repoName": "perfcheck-example",
+    "tagName": ".*"
+  },
+  "name": "tag",
+  "description": "Migrate from canary to prod triggered by creation of any tag",
+
+  "filename": "tag-cloudbuild.yaml"
+}
