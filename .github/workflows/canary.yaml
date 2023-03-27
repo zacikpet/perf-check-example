@@ -22,8 +22,8 @@ jobs:
       - id: deploy    
         uses: 'google-github-actions/deploy-cloudrun@v1'
         with:
-          service: 'hello-cloud-run'
-          image: 'gcr.io/cloudrun/hello'
+          service: 'perfcheck-example'
+          source: '.'
 
       - name: 'Use output'
         run: 'echo "${{ steps.deploy.outputs.url }}"'
