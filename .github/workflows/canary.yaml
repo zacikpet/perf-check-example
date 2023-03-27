@@ -40,7 +40,6 @@ jobs:
       - name: 'Use output'
         run: 'echo "${{ steps.deploy.outputs.url }}"'
 
-
       - name: Route production traffic
         run: |
           export CANARY=$$(gcloud run services describe $SERVICE_NAME --platform managed  --region $REGION --format=json | jq --raw-output ".spec.traffic[] | select (.tag==\"canary\")|.revisionName")
