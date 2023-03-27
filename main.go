@@ -22,7 +22,7 @@ func Helloworld(g *gin.Context) {
 	sleep := rand.Intn(100)
 
 	time.Sleep(time.Millisecond * time.Duration(sleep))
-	g.JSON(http.StatusOK, "helloworld 2")
+	g.JSON(http.StatusOK, "helloworld 3")
 }
 
 // @title			Example API
