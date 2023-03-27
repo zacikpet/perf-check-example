@@ -40,8 +40,6 @@ jobs:
       - name: 'Use output'
         run: 'echo "${{ steps.deploy.outputs.url }}"'
 
-      - name: Install jq
-        run: apt-get install -y jq
 
       - name: Route production traffic
         run: |
