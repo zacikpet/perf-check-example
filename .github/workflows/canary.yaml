@@ -3,6 +3,9 @@ on:
     branches:
       - master
 
+env:
+  SERVICE_NAME: perfcheck-example
+  REGION: us-central1
 
 jobs:
   deploy:
@@ -21,13 +24,29 @@ jobs:
           workload_identity_provider: 'projects/866888214894/locations/global/workloadIdentityPools/github-pool/providers/github-provider'
           service_account: 'github@linen-tempest-380208.iam.gserviceaccount.com'
 
-      - name: Deploy new revision
+      - name: 'Set up Cloud SDK'
+        uses: 'google-github-actions/setup-gcloud@v1'
+        with:
+          version: '>= 363.0.0'
+
+      - name: Deploy canary
         id: deploy    
         uses: 'google-github-actions/deploy-cloudrun@v1'
         with:
           service: 'perfcheck-example'
           source: '.'
-          tag: test
+          tag: canary
 
       - name: 'Use output'
         run: 'echo "${{ steps.deploy.outputs.url }}"'
+
+      - name: Install jq
+        run: apt-get install -y jq
+
+      - name: Route production traffic
+        run: |
+          export CANARY=$$(gcloud run services describe $SERVICE_NAME --platform managed  --region $REGION --format=json | jq --raw-output ".spec.traffic[] | select (.tag==\"canary\")|.revisionName")
+          export PROD=$$(gcloud run services describe $SERVICE_NAME --platform managed  --region $REGION --format=json | jq --raw-output ".spec.traffic[] | select (.tag==\"prod\")|.revisionName")
+          
+          echo gcloud run services update-traffic  $SERVICE_NAME --update-tags=prod=$${CANARY}  --platform managed  --region $REGION
+          echo gcloud run services update-traffic  $SERVICE_NAME --to-revisions=$${PROD}=100  --platform managed  --region $REGION
