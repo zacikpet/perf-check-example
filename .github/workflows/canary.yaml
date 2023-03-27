@@ -37,6 +37,15 @@ jobs:
           source: '.'
           tag: canary
 
+      - name: Setup Go environment
+        uses: actions/setup-go@v4.0.0
+        
+      - name: Install perfcheck
+        run: go install github.com/zacikpet/perfcheck
+      
+      - name: Run perfcheck
+        run: perfcheck test --source gcp #TODO
+
       - name: 'Use output'
         run: 'sleep 10 && echo "${{ steps.deploy.outputs.url }}"'
 
@@ -45,5 +54,5 @@ jobs:
           export CANARY=$(gcloud run services describe $SERVICE_NAME --platform managed --region $REGION --format=json | jq --raw-output ".spec.traffic[] | select (.tag==\"canary\")|.revisionName")
           export PROD=$(gcloud run services describe $SERVICE_NAME --platform managed --region $REGION --format=json | jq --raw-output ".spec.traffic[] | select (.tag==\"prod\")|.revisionName")
           
-          gcloud run services update-traffic $SERVICE_NAME --update-tags=prod=$${CANARY} --platform managed --region $REGION
-          gcloud run services update-traffic $SERVICE_NAME --to-revisions=$${PROD}=100 --platform managed --region $REGION
+          gcloud run services update-traffic $SERVICE_NAME --update-tags=prod=$CANARY --platform managed --region $REGION
+          gcloud run services update-traffic $SERVICE_NAME --to-revisions=$CANARY=100 --platform managed --region $REGION
