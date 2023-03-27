@@ -7,7 +7,7 @@ import (
 	"os"
 	"time"
 
-	docs "test-app/docs"
+	docs "perfcheck-example/docs"
 
 	"github.com/gin-gonic/gin"
 	swaggerfiles "github.com/swaggo/files"
