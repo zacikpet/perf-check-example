@@ -6,6 +6,8 @@ on:
 env:
   SERVICE_NAME: perfcheck-example
   REGION: us-central1
+  MONITORING_SERVICE: DBZZIT7eRq6iQIpW6sXrlg
+
 
 jobs:
   deploy:
@@ -44,10 +46,7 @@ jobs:
         run: go install github.com/zacikpet/perfcheck@latest
       
       - name: Run perfcheck
-        run: perfcheck test --source gcp #TODO
-
-      - name: 'Use output'
-        run: 'sleep 10 && echo "${{ steps.deploy.outputs.url }}"'
+        run: perfcheck test --source gcloud --gcloudProjectId=$PROJECT_ID --gcloudServiceId=$MONITORING_SERVICE --gcloudServiceUrl ${{ steps.deploy.outputs.url }}
 
       - name: Route production traffic
         run: |
