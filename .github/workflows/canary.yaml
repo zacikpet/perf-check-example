@@ -32,13 +32,13 @@ jobs:
         with:
           version: '>= 363.0.0'
 
-      - name: Deploy canary
-        id: deploy    
-        uses: 'google-github-actions/deploy-cloudrun@v1'
-        with:
-          service: 'perfcheck-example'
-          source: '.'
-          tag: canary
+      # - name: Deploy canary
+      #   id: deploy    
+      #   uses: 'google-github-actions/deploy-cloudrun@v1'
+      #   with:
+      #     service: 'perfcheck-example'
+      #     source: '.'
+      #     tag: canary
       
       - name: Install k6
         run: |
