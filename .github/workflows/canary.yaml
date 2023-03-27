@@ -41,7 +41,7 @@ jobs:
         uses: actions/setup-go@v4.0.0
         
       - name: Install perfcheck
-        run: go install github.com/zacikpet/perfcheck
+        run: go install github.com/zacikpet/perfcheck@latest
       
       - name: Run perfcheck
         run: perfcheck test --source gcp #TODO
