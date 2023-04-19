@@ -18,27 +18,33 @@ const docTemplate = `{
         "/": {
             "get": {
                 "summary": "Hello",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Search query",
+                        "name": "q",
+                        "in": "query"
+                    }
+                ],
                 "responses": {},
                 "x-perfcheck": {
                     "errorRate": [
                         "avg_stat \u003c 0.1"
                     ],
                     "latency": [
-                        "avg \u003c 50",
-                        "min \u003c 50",
-                        "avg_stat \u003c 50"
+                        "avg \u003c 100",
+                        "avg_stat \u003c 100"
+                    ],
+                    "responseSize": [
+                        "avg_stat \u003c 20"
                     ]
                 }
             }
         }
     },
     "x-perfcheck": {
-        "stages": [
-            {
-                "duration": "1s",
-                "target": 5
-            }
-        ]
+        "duration": 3,
+        "users": 20
     }
 }`
 

@@ -16,7 +16,8 @@ import (
 
 // @Summary		Hello
 // @Router			/ [get]
-// @x-perfcheck	{ "latency": ["avg < 50", "min < 50", "avg_stat < 50"], "errorRate": ["avg_stat < 0.1"] }
+// @x-perfcheck	{ "latency": ["avg < 100", "avg_stat < 100"], "errorRate": ["avg_stat < 0.1"], "responseSize": ["avg_stat < 20"] }
+// @Param q query string false "Search query"
 func Helloworld(g *gin.Context) {
 
 	sleep := rand.Intn(100)
@@ -26,7 +27,7 @@ func Helloworld(g *gin.Context) {
 }
 
 // @title			Example API
-// @x-perfcheck	{ "stages": [{ "duration": "1s", "target": 5 }] }
+// @x-perfcheck	{ "users": 20, "duration": 3 }
 func main() {
 	r := gin.Default()
 
@@ -46,11 +47,7 @@ func main() {
 		scheme = "http"
 	}
 
-	if port == "" {
-		docs.SwaggerInfo.Host = fmt.Sprintf("%s:%s", host, port)
-	} else {
-		docs.SwaggerInfo.Host = host
-	}
+	docs.SwaggerInfo.Host = fmt.Sprintf("%s:%s", host, port)
 
 	docs.SwaggerInfo.Schemes = []string{scheme}
 

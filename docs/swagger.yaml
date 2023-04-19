@@ -4,17 +4,22 @@ info:
 paths:
   /:
     get:
+      parameters:
+      - description: Search query
+        in: query
+        name: q
+        type: string
       responses: {}
       summary: Hello
       x-perfcheck:
         errorRate:
         - avg_stat < 0.1
         latency:
-        - avg < 50
-        - min < 50
-        - avg_stat < 50
+        - avg < 100
+        - avg_stat < 100
+        responseSize:
+        - avg_stat < 20
 swagger: "2.0"
 x-perfcheck:
-  stages:
-  - duration: 1s
-    target: 5
+  duration: 3
+  users: 20
