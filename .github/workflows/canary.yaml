@@ -57,7 +57,7 @@ jobs:
       
 
       - name: Run perfcheck
-        run: perfcheck test --source gcloud --gcloudProjectId=$PROJECT_ID --gcloudServiceId=$MONITORING_SERVICE --gcloudServiceUrl ${{ steps.deploy.outputs.url }} --no-k6
+        run: perfcheck test --source gcloud --gcloudProjectId=$PROJECT_ID --gcloudServiceId=$MONITORING_SERVICE --gcloudServiceUrl ${{ steps.deploy.outputs.url }}
 
       - name: Route production traffic
         run: |
